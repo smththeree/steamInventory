@@ -9,7 +9,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 export const useInventoryState = (appId: string) => {
   const userData = useProfileStore((state) => state.userData);
   if (!userData) throw new Error("User data not found");
-  const ref = useRef<Element | null>(null);
+  const ref = useRef<HTMLSpanElement | null>(null);
   const isIntersecting = useIntersectionObserver(ref, { threshold: 0.5 });
   const [count, setCount] = useState(25);
 
