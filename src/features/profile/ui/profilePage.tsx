@@ -1,11 +1,12 @@
 import ProfileData from "./profileData";
-import ProfileInventory from "./profileInventory";
+
+import ProfileTabs from "./profileTabs";
 
 const ProfilePage = () => {
   return (
     <div>
       <ProfileData />
-      <ProfileInventory />
+      <ProfileTabs />
     </div>
   );
 };

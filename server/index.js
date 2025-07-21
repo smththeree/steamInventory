@@ -51,7 +51,6 @@ app.get('/auth/steam/return', (req, res) => {
       return res.send('Cannot extract SteamID');
     }
 
-    console.log('Authenticated SteamID:', steamId);
 
     // редиректим на фронт с параметром steamId
     const frontendUrl = `http://localhost:5173/user?steamId=${steamId}`;
@@ -76,7 +75,7 @@ app.get('/profile/:steamId', async (req, res) => {
 
     return res.json(player);
   } catch (error) {
-    console.error(error);
+
     return res.status(500).json({ error: 'Failed to fetch profile' });
   }
 });
@@ -87,15 +86,11 @@ app.get('/inventory/:steamId/:appId/:contextId', async (req, res) => {
 
   const url = `https://steamcommunity.com/inventory/${steamId}/${appId}/${contextId}?l=${lang}&count=${count}`;
 
-  console.log("Fetching URL:", url);
 
   try {
     const response = await fetch(url);
     const raw = await response.text();
 
-    console.log("STATUS:", response.status);
-    console.log("STATUS TEXT:", response.statusText);
-    console.log("RAW RESPONSE:", raw || "[EMPTY STRING]");
 
     if (response.status !== 200) {
       return res.status(response.status).json({
@@ -114,7 +109,7 @@ app.get('/inventory/:steamId/:appId/:contextId', async (req, res) => {
     try {
       data = JSON.parse(raw);
     } catch (e) {
-      console.log("Not JSON:", raw);
+    
       return res.status(500).json({
         error: "Steam response is not JSON",
         raw
@@ -135,7 +130,7 @@ app.get('/inventory/:steamId/:appId/:contextId', async (req, res) => {
 
     res.json(data);
   } catch (error) {
-    console.error(error);
+
     res.status(500).json({
       error: "Failed to fetch inventory"
     });
